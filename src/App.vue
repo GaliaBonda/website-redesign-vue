@@ -71,18 +71,8 @@
             </div>
             <div class="socials">
               <div class="socials__photos">
-                <img
-                  src="./assets/socials_1.png"
-                  alt="socials photo"
-                  class="socials__photo"
-                />
-                <img
-                  src="./assets/socials_2.png"
-                  alt="socials photo"
-                  class="socials__photo"
-                />
-                <img
-                  src="./assets/socials_3.png"
+                <img  v-for="item in socialImages" v-bind:key="item.id"
+                  v-bind:src="require('./assets/'+item.img)"
                   alt="socials photo"
                   class="socials__photo"
                 />
@@ -136,7 +126,7 @@ declare module '@vue/runtime-core' {
 }
 
 export default defineComponent({
-  data (): Record<string, string | number | Element[]> {
+  data (): Record<string, unknown> {
     return {
       userName: 'Jean Gonzales',
       status: 'Product Owner',
@@ -144,7 +134,20 @@ export default defineComponent({
       completedTasks: 372,
       openTasks: 11,
       notifications: 3,
-      picArray: []
+      socialImages: [
+        {
+          img: 'socials_1.png',
+          id: 1
+        },
+        {
+          img: 'socials_2.png',
+          id: 2
+        },
+        {
+          img: 'socials_3.png',
+          id: 3
+        }
+      ]
     }
   },
 
@@ -171,7 +174,7 @@ export default defineComponent({
       (e.target as HTMLElement).style.outline = 'none'
     },
     changeTasksCounter (): void {
-      if (this.openTasks > 0) {
+      if (this.openTasks as number > 0) {
         this.confirmChange()
       } else {
         const declineWindow = this.createWindow('You don\'t have any open tasks to set complete.')
@@ -225,11 +228,6 @@ export default defineComponent({
       const btnBlock = document.createElement('div')
       btnBlock.classList.add('btnBlockStyles')
       return btnBlock
-    },
-    changeNotifications (e: Event): void {
-      console.log('haha')
-      const currentIndex = (this.picArray as Element[]).indexOf(e.target as Element)
-      this.notifications = currentIndex
     }
   },
   mounted () {
