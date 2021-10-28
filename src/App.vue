@@ -54,7 +54,7 @@
                 id="notifications"
                 v-bind:data-after="notifications"
               >
-                <a href="#" class="sidebar-nav__link" v-on:click='makeActive' v-on:getIndex="changeNotifications">Notifications</a>
+                <a href="#" class="sidebar-nav__link" v-on:click='makeActive'>Notifications</a>
               </li>
             </ul>
           </nav>
